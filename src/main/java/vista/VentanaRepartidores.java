@@ -74,7 +74,7 @@ public class VentanaRepartidores extends JFrame {
         tablaRepartidores = new JTable(modeloTabla);
         tablaRepartidores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Ubicar todo en la ventana
+
         setLayout(new BorderLayout());
         add(panelSuperior, BorderLayout.NORTH);
         add(new JScrollPane(tablaRepartidores), BorderLayout.CENTER);
