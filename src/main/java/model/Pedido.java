@@ -1,17 +1,27 @@
 package model;
 
+/**
+ * Representa un pedido de SpeedFast.
+ * Corresponde a la tabla "pedidos" de la base de datos.
+ */
 public class Pedido {
 
     private int id;
-    private String direccionEntrega;
-    private String tipo;
-    private String repartidor;
+    private String direccion;
+    private String tipo;    // COMIDA, ENCOMIENDA o EXPRESS
+    private String estado;  // PENDIENTE, EN_REPARTO o ENTREGADO
 
-    public Pedido(int id, String direccionEntrega, String tipo) {
-        this.id = id;
-        this.direccionEntrega = direccionEntrega;
+    public Pedido(String direccion, String tipo, String estado) {
+        this.direccion = direccion;
         this.tipo = tipo;
-        this.repartidor = "Sin Asignar";
+        this.estado = estado;
+    }
+
+    public Pedido(int id, String direccion, String tipo, String estado) {
+        this.id = id;
+        this.direccion = direccion;
+        this.tipo = tipo;
+        this.estado = estado;
     }
 
     public int getId() {
@@ -22,12 +32,12 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getDireccionEntrega() {
-        return direccionEntrega;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setDireccionEntrega(String direccionEntrega) {
-        this.direccionEntrega = direccionEntrega;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public String getTipo() {
@@ -38,20 +48,17 @@ public class Pedido {
         this.tipo = tipo;
     }
 
-    public String getRepartidor() {
-        return repartidor;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setRepartidor(String repartidor) {
-        this.repartidor = repartidor;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
+
 
     @Override
     public String toString() {
-        return "Pedido #" + id
-                + " - " + direccionEntrega
-                + " - " + tipo
-                + " - Repartidor: " + repartidor;
+        return id + " - " + direccion;
     }
 }
-

@@ -1,125 +1,36 @@
 package vista;
-import model.GestorPedidos;
+
 import javax.swing.*;
-import model.Pedido;
+import java.awt.*;
 
+/**
+ * Menú principal de SpeedFast. Desde aquí se abren
+ * las ventanas de gestión de cada entidad.
+ */
 public class VentanaPrincipal extends JFrame {
-    private JLabel lblSPEEDFAST;
-    private JPanel ventanaPrincipal;
-    private JButton btnRegistrar;
-    private JButton btnListar;
-    private JButton btnEntrega;
 
-    private GestorPedidos gestorPedidos;
-
-    public VentanaPrincipal(GestorPedidos gestorPedidos) {
-
-        this.gestorPedidos = gestorPedidos;
-
-        setTitle("SpeedFast");
-        setSize(500, 300);
+    public VentanaPrincipal() {
+        setTitle("SpeedFast - Menú principal");
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        setContentPane(ventanaPrincipal);
+        // Título
+        JLabel lblTitulo = new JLabel("SPEEDFAST", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 26));
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 
-        // Botón Registrar Pedido
-        btnRegistrar.addActionListener(e -> {
+        // Botones del menú
+        JButton btnRepartidores = new JButton("Gestión de Repartidores");
+        btnRepartidores.addActionListener(e -> new VentanaRepartidores().setVisible(true));
 
-            VentanaRegistroPedido ventanaRegistro =
-                    new VentanaRegistroPedido(gestorPedidos);
+        // Panel con los botones uno debajo del otro
+        JPanel panelBotones = new JPanel(new GridLayout(0, 1, 10, 10));
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 60, 30, 60));
+        panelBotones.add(btnRepartidores);
 
-            ventanaRegistro.setVisible(true);
-        });
-
-        // Botón Listar Pedidos
-        btnListar.addActionListener(e -> {
-
-            VentanaListaPedidos ventanaLista =
-                    new VentanaListaPedidos(gestorPedidos);
-
-            ventanaLista.setVisible(true);
-        });
-
-        // Botón Asignar / Iniciar Entrega
-        btnEntrega.addActionListener(e -> {
-
-            String idTexto = JOptionPane.showInputDialog(
-                    this,
-                    "Ingrese el ID del pedido:"
-            );
-
-            if (idTexto == null) {
-                return;
-            }
-
-            if (idTexto.isEmpty()) {
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Debe ingresar un ID."
-                );
-
-                return;
-            }
-
-            int id;
-
-            try {
-
-                id = Integer.parseInt(idTexto);
-
-            } catch (NumberFormatException ex) {
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "El ID debe ser un número."
-                );
-
-                return;
-            }
-
-            Pedido pedidoEncontrado = null;
-
-            for (Pedido pedido : gestorPedidos.getPedidos()) {
-
-                if (pedido.getId() == id) {
-
-                    pedidoEncontrado = pedido;
-                    break;
-                }
-            }
-
-            if (pedidoEncontrado == null) {
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "No se encontró un pedido con ese ID.");
-
-                return;
-            }
-
-            String nombreRepartidor = JOptionPane.showInputDialog(
-                    this,
-                    "Ingrese el nombre del repartidor:");
-
-            if (nombreRepartidor == null || nombreRepartidor.isEmpty()) {
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Debe ingresar el nombre del repartidor.");
-
-                return;
-            }
-
-            pedidoEncontrado.setRepartidor(nombreRepartidor);
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Pedido #" + pedidoEncontrado.getId()
-                            + " asignado a "
-                            + nombreRepartidor
-                            + "\nEntrega iniciada.");
-        });
+        setLayout(new BorderLayout());
+        add(lblTitulo, BorderLayout.NORTH);
+        add(panelBotones, BorderLayout.CENTER);
     }
 }
