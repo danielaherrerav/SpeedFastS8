@@ -27,12 +27,16 @@ public class VentanaPrincipal extends JFrame {
         JButton btnPedidos = new JButton("Gestión de Pedidos");
         btnPedidos.addActionListener(e -> new VentanaPedidos().setVisible(true));
 
+        JButton btnEntregas = new JButton("Gestión de Entregas");
+        btnEntregas.addActionListener(e -> new VentanaEntregas().setVisible(true));
+
         // Panel con los botones uno debajo del otro
         JPanel panelBotones = new JPanel(new GridLayout(0, 1, 10, 10));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 60, 30, 60));
         panelBotones.add(btnRepartidores);
 
         panelBotones.add(btnPedidos);
+        panelBotones.add(btnEntregas);
 
         setLayout(new BorderLayout());
         add(lblTitulo, BorderLayout.NORTH);
